@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Capstone.DAL;
+using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Capstone.Views
@@ -6,18 +8,18 @@ namespace Capstone.Views
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class SubMenu1 : CLIMenu
+    public class SubMenu1 : MainMenu
     {
         // Store any private variables, including DAOs here....
-
+        private Park selectedPark;
 
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(/** DAOs may be passed in... ***/) :
-            base("Sub-Menu 1")
+        public SubMenu1(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
+            base(campgroundDAO, parkDAO, reservationDAO, siteDAO)
         {
-            // Store any values or DAOs passed in....
+            this.selectedPark = selectedPark;
         }
 
         protected override void SetMenuOptions()

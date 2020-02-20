@@ -273,7 +273,7 @@ namespace Capstone.Views
         /// <param name="message">Displays a message to the user and then waits for them to hit Return.</param>
         static public void Pause(string message)
         {
-            Console.Write(message + " Press Enter to continue.");
+            Console.Write(message + "Press Enter to continue.");
             Console.ReadLine();
         }
 

@@ -17,6 +17,7 @@ namespace Capstone.Views
         protected ISiteSqlDAO siteDAO;
         private string menuNumber;
         private Park selectedPark = new Park();
+        private int input;
 
         /// <summary>
         /// Constructor adds items to the top-level menu. YOu will likely have parameters for one or more DAO's here...
@@ -45,6 +46,8 @@ namespace Capstone.Views
             }
             this.menuOptions.Add("Q", "Quit");
             this.quitKey = "Q";
+
+            
         }
 
         /// <summary>
@@ -55,29 +58,61 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
+            Console.Clear();
+            IList<Park> parks = parkDAO.GetParks();
+            int chosen = Convert.ToInt32(choice);
+
+            foreach(Park park in parks)
+            {
+                if (chosen == park.ParkId)
+                {
+                    selectedPark = park;
+                    break;
+                }
+            }
+
+
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    //int i1 = GetInteger("Enter the first integer: ");
-                    //int i2 = GetInteger("Enter the second integer: ");
-                    //Console.WriteLine($"{i1} + {i2} = {i1+i2}");
                     Console.WriteLine($"{selectedPark.Name} National Park");
                     Console.WriteLine($"Location: {selectedPark.Location}");
-                    Console.WriteLine($"Established: {selectedPark.EstablishDate}");
+                    Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
                     Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
                     Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
                     Console.WriteLine();
                     Console.WriteLine($"{selectedPark.Description}");
-                    Pause("Press enter to continue");
+                    Console.WriteLine();
+                    //SubMenu1 sm = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                    //sm.Run();
+                    Pause("");
                     return true;    // Keep running the main menu
                 case "2": // Do whatever option 2 is
-                    WriteError("Not yet implemented");
+                    Console.WriteLine($"{selectedPark.Name} National Park");
+                    Console.WriteLine($"Location: {selectedPark.Location}");
+                    Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+                    Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+                    Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+                    Console.WriteLine();
+                    Console.WriteLine($"{selectedPark.Description}");
+                    Console.WriteLine();
                     Pause("");
                     return true;    // Keep running the main menu
                 case "3": // Create and show the sub-menu
-                    SubMenu1 sm = new SubMenu1();
-                    sm.Run();
+                    Console.WriteLine($"{selectedPark.Name} National Park");
+                    Console.WriteLine($"Location: {selectedPark.Location}");
+                    Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+                    Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+                    Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+                    Console.WriteLine();
+                    Console.WriteLine($"{selectedPark.Description}");
+                    Console.WriteLine();
+                    Pause("");
                     return true;    // Keep running the main menu
+                                    //case "4": // Create and show the sub-menu
+                                    //    SubMenu1 sm = new SubMenu1();
+                                    //    sm.Run();
+                                    //    return true;    // Keep running the main menu
             }
             return true;
         }
