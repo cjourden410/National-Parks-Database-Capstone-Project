@@ -28,7 +28,7 @@ namespace Capstone.DAL
                     conn.Open();
 
                     // Create the command for sql statement
-                    string sql = "Select * From campground Where park_id = @park_id";
+                    string sql = "Select * From campground Where park_id = @park_id Order By name";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@park_id", park_id);
 

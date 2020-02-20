@@ -1,22 +1,21 @@
 ﻿using Capstone.DAL;
 using Capstone.Models;
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 
 namespace Capstone.Views
 {
-    /// <summary>
-    /// The top-level menu in our Market Application
-    /// </summary>
-    public class SubMenu1 : MainMenu
+    public class CampgroundsMenu : MainMenu
     {
         // Store any private variables, including DAOs here....
         private Park selectedPark;
+        private string menuNumber;
 
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
+        public CampgroundsMenu(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
             base(campgroundDAO, parkDAO, reservationDAO, siteDAO)
         {
             this.selectedPark = selectedPark;
@@ -24,10 +23,9 @@ namespace Capstone.Views
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "View Campgrounds");
-            this.menuOptions.Add("2", "Search for Reservation");
-            this.menuOptions.Add("3", "Return to Previous Screen");
-            this.quitKey = "3";
+            this.menuOptions.Add("1", "Search for Available Reservation");
+            this.menuOptions.Add("2", "Return to Previous Screen");
+            this.quitKey = "2";
         }
 
         /// <summary>
@@ -40,17 +38,12 @@ namespace Capstone.Views
         {
             switch (choice)
             {
-                case "1": // Go to new SubMenu for Park Campgrounds
+                case "1": // Go to new SubMenu for Reservations
                     //WriteError("Not yet implemented");
-                    CampgroundsMenu cm = new CampgroundsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                    cm.Run();
-                    Pause("");
-                    return true;
-                case "2": // Go to SubMenu for Reservations
                     //ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
                     //rm.Run();
                     Pause("");
-                    return false;
+                    return true;
             }
             return true;
         }
@@ -58,14 +51,19 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
-            SetColor(ConsoleColor.Cyan);
-            Console.WriteLine($"{selectedPark.Name} National Park");
-            Console.WriteLine($"Location: {selectedPark.Location}");
-            Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
-            Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
-            Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
-            Console.WriteLine();
-            Console.WriteLine($"{selectedPark.Description}");
+            SetColor(ConsoleColor.DarkMagenta);
+            IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
+            int sum = 0;
+            Console.WriteLine($"      {"Name",-10} {"Open",11} {"Close",11} {"Daily Fee",16}");
+            foreach (Campground campground in campgrounds)
+            {
+                sum += 1;
+                menuNumber = Convert.ToString(sum);
+                string openFromMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenFromMonth);
+                string openToMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenToMonth);
+                Console.WriteLine($"{"#"}{menuNumber}    {campground.Name, -17} {openFromMonth, -10} {openToMonth, -12} {campground.DailyFee.ToString("C"), 0}");
+
+            }
             ResetColor();
         }
 
@@ -83,6 +81,5 @@ namespace Capstone.Views
             Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
             ResetColor();
         }
-
     }
 }

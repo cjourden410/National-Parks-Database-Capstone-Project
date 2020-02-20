@@ -71,53 +71,62 @@ namespace Capstone.Views
                 }
             }
 
-
-            switch (choice)
+            if (chosen <= parks.Count)
             {
-                case "1": // Do whatever option 1 is
-                    //Console.WriteLine($"{selectedPark.Name} National Park");
-                    //Console.WriteLine($"Location: {selectedPark.Location}");
-                    //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
-                    //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
-                    //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
-                    //Console.WriteLine();
-                    //Console.WriteLine($"{selectedPark.Description}");
-                    //Console.WriteLine();
-                    SubMenu1 sm = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                    sm.Run();
-                    Pause("");
-                    return true;    // Keep running the main menu
-                case "2": // Do whatever option 2 is
-                    //Console.WriteLine($"{selectedPark.Name} National Park");
-                    //Console.WriteLine($"Location: {selectedPark.Location}");
-                    //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
-                    //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
-                    //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
-                    //Console.WriteLine();
-                    //Console.WriteLine($"{selectedPark.Description}");
-                    //Console.WriteLine();
-                    SubMenu1 sm2 = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                    sm2.Run();
-                    Pause("");
-                    return true;    // Keep running the main menu
-                case "3": // Create and show the sub-menu
-                    //Console.WriteLine($"{selectedPark.Name} National Park");
-                    //Console.WriteLine($"Location: {selectedPark.Location}");
-                    //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
-                    //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
-                    //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
-                    //Console.WriteLine();
-                    //Console.WriteLine($"{selectedPark.Description}");
-                    //Console.WriteLine();
-                    SubMenu1 sm3 = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                    sm3.Run();
-                    Pause("");
-                    return true;    // Keep running the main menu
-                                    //case "4": // Create and show the sub-menu
-                                    //    SubMenu1 sm = new SubMenu1();
-                                    //    sm.Run();
-                                    //    return true;    // Keep running the main menu
+                SubMenu1 sm = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                sm.Run();
+                Pause("");
+                return true;
             }
+           // TODO: Ask about having a message appear when not selecting a valid number
+            #region Original way we approached getting to SubMenu1
+            //switch (choice)
+            //{
+            //    case "1": // Do whatever option 1 is
+            //        //Console.WriteLine($"{selectedPark.Name} National Park");
+            //        //Console.WriteLine($"Location: {selectedPark.Location}");
+            //        //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+            //        //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+            //        //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+            //        //Console.WriteLine();
+            //        //Console.WriteLine($"{selectedPark.Description}");
+            //        //Console.WriteLine();
+            //        SubMenu1 sm = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+            //        sm.Run();
+            //        Pause("");
+            //        return true;    // Keep running the main menu
+            //    case "2": // Do whatever option 2 is
+            //        //Console.WriteLine($"{selectedPark.Name} National Park");
+            //        //Console.WriteLine($"Location: {selectedPark.Location}");
+            //        //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+            //        //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+            //        //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+            //        //Console.WriteLine();
+            //        //Console.WriteLine($"{selectedPark.Description}");
+            //        //Console.WriteLine();
+            //        SubMenu1 sm2 = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+            //        sm2.Run();
+            //        Pause("");
+            //        return true;    // Keep running the main menu
+            //    case "3": // Create and show the sub-menu
+            //        //Console.WriteLine($"{selectedPark.Name} National Park");
+            //        //Console.WriteLine($"Location: {selectedPark.Location}");
+            //        //Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+            //        //Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+            //        //Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+            //        //Console.WriteLine();
+            //        //Console.WriteLine($"{selectedPark.Description}");
+            //        //Console.WriteLine();
+            //        SubMenu1 sm3 = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+            //        sm3.Run();
+            //        Pause("");
+            //        return true;    // Keep running the main menu
+            //                        //case "4": // Create and show the sub-menu
+            //                        //    SubMenu1 sm = new SubMenu1();
+            //                        //    sm.Run();
+            //                        //    return true;    // Keep running the main menu
+            //}
+            #endregion
             return true;
         }
 
