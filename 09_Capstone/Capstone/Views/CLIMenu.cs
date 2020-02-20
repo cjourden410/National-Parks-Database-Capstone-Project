@@ -79,6 +79,8 @@ namespace Capstone.Views
             }
         }
 
+
+
         /// <summary>
         /// Override this to display messages, data or text prior to the menu listing
         /// </summary>
@@ -241,6 +243,28 @@ namespace Capstone.Views
                     Console.WriteLine("!!! Invalid input. Please enter a valid string.");
                 }
             }
+        }
+
+        public static DateTime GetDateTime(string message)
+        {
+            string userInput = String.Empty;
+            DateTime dateValue = DateTime.MinValue;
+            int numberOfAttempts = 0;
+
+            do
+            {
+                if (numberOfAttempts > 0)
+                {
+                    Console.WriteLine("Invalid date format. Please try again");
+                }
+
+                Console.Write(message + " ");
+                userInput = Console.ReadLine();
+                numberOfAttempts++;
+            }
+            while (!DateTime.TryParse(userInput, out dateValue));
+
+            return dateValue;
         }
 
         /// <summary>

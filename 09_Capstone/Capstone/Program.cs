@@ -1,4 +1,5 @@
-﻿using Capstone.Views;
+﻿using Capstone.DAL;
+using Capstone.Views;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -23,8 +24,12 @@ namespace Capstone
             *********************************************************************/
             // Create any DAOs needed here, and then pass them into main menu...
 
+            ICampgroundSqlDAO campgroundDAO = new CampgroundSqlDAO(connectionString);
+            IParkSqlDAO parkDAO = new ParkSqlDAO(connectionString);
+            IReservationSqlDAO reservationDAO = new ReservationSqlDAO(connectionString);
+            ISiteSqlDAO siteDAO = new SiteSqlDAO(connectionString);
 
-            MainMenu mainMenu = new MainMenu();  // You'll probably be adding daos to the constructor
+            MainMenu mainMenu = new MainMenu(campgroundDAO, parkDAO, reservationDAO, siteDAO);  // You'll probably be adding daos to the constructor
 
             // Run the menu.
             mainMenu.Run();
