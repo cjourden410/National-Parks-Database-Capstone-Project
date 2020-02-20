@@ -24,10 +24,10 @@ namespace Capstone.Views
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Option 1");
-            this.menuOptions.Add("2", "Do Option 2 and return to Main");
-            this.menuOptions.Add("B", "Back to Main Menu");
-            this.quitKey = "B";
+            this.menuOptions.Add("1", "View Campgrounds");
+            this.menuOptions.Add("2", "Search for Reservation");
+            this.menuOptions.Add("3", "Return to Previous Screen");
+            this.quitKey = "3";
         }
 
         /// <summary>
@@ -55,13 +55,22 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
+            SetColor(ConsoleColor.Cyan);
+            Console.WriteLine($"{selectedPark.Name} National Park");
+            Console.WriteLine($"Location: {selectedPark.Location}");
+            Console.WriteLine($"Established: {selectedPark.EstablishDate.ToString("d")}");
+            Console.WriteLine($"Area: {selectedPark.Area.ToString("N0")} sq km");
+            Console.WriteLine($"Annual Visitors: {selectedPark.Visitors.ToString("N0")}");
+            Console.WriteLine();
+            Console.WriteLine($"{selectedPark.Description}");
+            ResetColor();
         }
 
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
-            SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            SetColor(ConsoleColor.Green);
+            //Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
             ResetColor();
         }
 
