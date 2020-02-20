@@ -16,7 +16,7 @@ namespace Capstone
 
             IConfigurationRoot configuration = builder.Build();
 
-            string connectionString = configuration.GetConnectionString("Project");
+            string connectionString = configuration.GetConnectionString("npcampground");
 
             /********************************************************************
             // If you do not want to use CLIMenu, you can remove the following
