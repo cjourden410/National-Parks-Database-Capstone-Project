@@ -14,10 +14,11 @@ namespace Capstone.Tests
     {
         private TransactionScope transaction = null;
         private string connectionString = "Server=.\\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;";
-        // TODO: private int newCampgroundId; ID NEEDED HERE
-        // TODO: private int newParkId; ID NEEDED HERE
-        // TODO: private int newReservationId; ID NEEDED HERE
-        // TODO: private int newSiteId; ID NEEDED HERE
+        private int newCampgroundId;
+        private int newParkId;
+        private int newReservationId;
+        private int newSiteId;
+
 
         [TestInitialize]
         public void SetupDatabase()
@@ -40,32 +41,31 @@ namespace Capstone.Tests
                 SqlCommand cmd = new SqlCommand(setupSQL, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
 
-                // TODO: NEED TO UPDATE THIS PRIOR TO TESTING
-                //if (rdr.Read())
-                //{
-                //    newDepartmentId = Convert.ToInt32(rdr["newDepartmentId"]); // TODO: UPDATE TO PROPER ID
-                //}
+                if (rdr.Read())
+                {
+                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
+                }
 
-                //rdr.NextResult();
+                rdr.NextResult();
 
-                //if (rdr.Read())
-                //{
-                //    newEmployeeId = Convert.ToInt32(rdr["newEmployeeId"]); // TODO: UPDATE TO PROPER ID
-                //}
+                if (rdr.Read())
+                {
+                    newCampgroundId = Convert.ToInt32(rdr["newCampgroundId"]);
+                }
 
-                //rdr.NextResult();
+                rdr.NextResult();
 
-                //if (rdr.Read())
-                //{
-                //    newProjectId = Convert.ToInt32(rdr["newProjectId"]); // TODO: UPDATE TO PROPER ID
-                //}
+                if (rdr.Read())
+                {
+                    newParkId = Convert.ToInt32(rdr["newParkId"]);
+                }
 
-                //rdr.NextResult();
+                rdr.NextResult();
 
-                //if (rdr.Read())
-                //{
-                //    newProjectId = Convert.ToInt32(rdr["newProjectId"]); // TODO: UPDATE TO PROPER ID
-                //}
+                if (rdr.Read())
+                {
+                    newReservationId = Convert.ToInt32(rdr["newReservationId"]);
+                }
             }
         }
 
