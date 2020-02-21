@@ -64,6 +64,7 @@ namespace Capstone.Views
             }
             else
             {
+                
                 string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
                 string departureDate = CLIMenu.GetDateTime("What is the departure date?");
                 IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
@@ -80,14 +81,13 @@ namespace Capstone.Views
                     }
 
                     string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
-
                     if (siteToReserve == "0")
                     {
                         ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
                         rm.Run();
                         Pause("");
                     }
-
+                    
                     bool siteExistsInList = false;
 
                     foreach (Site site in sites)
@@ -112,6 +112,7 @@ namespace Capstone.Views
                     Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
                     return;
                 }
+         
             }
         }
 

@@ -68,6 +68,7 @@ namespace Capstone.Views
                 {
                     if (choice == quitKey)
                     {
+                        Environment.Exit(0);
                         break;
                     }
                     if (!ExecuteSelection(choice))
@@ -77,9 +78,9 @@ namespace Capstone.Views
                 }
                 else
                 {
-                    break;
+                    Pause("Please enter a valid selection. ");
+                    //break;
                 }
-
             }
         }
 

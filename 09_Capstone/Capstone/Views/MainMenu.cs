@@ -45,9 +45,9 @@ namespace Capstone.Views
                 this.menuOptions.Add($"{menuNumber}", $"{park.Name}");
             }
             this.menuOptions.Add("Q", "Quit");
-            //this.quitKey = "Q";
+            this.quitKey = "Q";
 
-            
+
         }
 
         /// <summary>
@@ -78,19 +78,19 @@ namespace Capstone.Views
                 Pause("");
                 return true;
             }
-            else if (chosen > parks.Count)
-            {
-                Console.WriteLine("Please enter a valid menu option");
-                Pause("");
-                MainMenu mm = new MainMenu(campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                mm.Run();
-                Pause("");
-                return true;
-            }
-            else if (choice.ToUpper() == "Q")
-            {
-                Environment.Exit(0);
-            }
+            //else if (chosen > parks.Count)
+            //{
+            //    Console.WriteLine("Please enter a valid menu option");
+            //    Pause("");
+            //    MainMenu mm = new MainMenu(campgroundDAO, parkDAO, reservationDAO, siteDAO);
+            //    mm.Run();
+            //    Pause("");
+            //    return true;
+            //}
+            //else if (choice.ToUpper() == "Q")
+            //{
+            //    Environment.Exit(0);
+            //}
             // TODO: Ask about having a message appear when not selecting a valid number
             #region Original way we approached getting to SubMenu1
             //switch (choice)
