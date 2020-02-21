@@ -10,7 +10,7 @@ using Capstone.Models;
 namespace Capstone.Tests
 {
     [TestClass]
-    class SiteSqlDAOTests
+    public class SiteSqlDAOTests
     {
         private TransactionScope transaction = null;
         private string connectionString = "Server=.\\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;";
@@ -43,7 +43,7 @@ namespace Capstone.Tests
 
                 if (rdr.Read())
                 {
-                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
+                    newParkId = Convert.ToInt32(rdr["newParkId"]);
                 }
 
                 rdr.NextResult();
@@ -57,7 +57,7 @@ namespace Capstone.Tests
 
                 if (rdr.Read())
                 {
-                    newParkId = Convert.ToInt32(rdr["newParkId"]);
+                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
                 }
 
                 rdr.NextResult();
@@ -78,7 +78,7 @@ namespace Capstone.Tests
 
 
         [TestMethod]
-        public void TestMethod1()
+        public void wackbro()
         {
 
         }

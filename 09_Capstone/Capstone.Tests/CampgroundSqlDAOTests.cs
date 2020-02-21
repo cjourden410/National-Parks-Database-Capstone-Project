@@ -41,9 +41,10 @@ namespace Capstone.Tests
                 SqlCommand cmd = new SqlCommand(setupSQL, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
 
+
                 if (rdr.Read())
                 {
-                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
+                    newParkId = Convert.ToInt32(rdr["newParkId"]);
                 }
 
                 rdr.NextResult();
@@ -57,7 +58,7 @@ namespace Capstone.Tests
 
                 if (rdr.Read())
                 {
-                    newParkId = Convert.ToInt32(rdr["newParkId"]);
+                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
                 }
 
                 rdr.NextResult();
@@ -78,8 +79,23 @@ namespace Capstone.Tests
 
 
         [TestMethod]
-        public void TestMethod1()
+        public void GetCampgroundsByIdTest()
         {
+            CampgroundSqlDAO dao = new CampgroundSqlDAO(connectionString);
+
+            IList<Campground> campgroundss = dao.GetCampgroundsByParkId(newParkId);
+
+            Assert.AreEqual(1, campgroundss.Count);
+        }
+
+        [TestMethod]
+        public void GetCampgroundCost()
+        {
+            CampgroundSqlDAO dao = new CampgroundSqlDAO(connectionString);
+
+            string idString = newCampgroundId.ToString();
+
+            dao.GetCampgroundCost(idString);
 
         }
     }

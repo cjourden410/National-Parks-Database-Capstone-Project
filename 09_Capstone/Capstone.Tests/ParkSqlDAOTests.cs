@@ -43,7 +43,7 @@ namespace Capstone.Tests
 
                 if (rdr.Read())
                 {
-                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
+                    newParkId = Convert.ToInt32(rdr["newParkId"]);
                 }
 
                 rdr.NextResult();
@@ -57,7 +57,7 @@ namespace Capstone.Tests
 
                 if (rdr.Read())
                 {
-                    newParkId = Convert.ToInt32(rdr["newParkId"]);
+                    newSiteId = Convert.ToInt32(rdr["newSiteId"]);
                 }
 
                 rdr.NextResult();
@@ -78,9 +78,13 @@ namespace Capstone.Tests
 
 
         [TestMethod]
-        public void TestMethod1()
+        public void GetAllParksTest()
         {
+            ParkSqlDAO dao = new ParkSqlDAO(connectionString);
 
+            IList<Park> parks = dao.GetParks();
+
+            Assert.AreEqual(1, parks.Count);
         }
     }
 }
