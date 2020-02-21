@@ -69,11 +69,11 @@ namespace Capstone.Views
                 {
                     decimal campgroundCost = campgroundDAO.GetCampgroundCost(pickCampground);
                     Console.WriteLine("Results Matching Your Search Criteria");
-                    Console.WriteLine($"{"Site No."} {"Max Occupancy"} {"Accessible?"} {"Max RV Length"} {"Utility"} {"Cost"}");
+                    Console.WriteLine($"{"Site No.", -10} {"Max Occupancy", 10} {"Accessible?", 14} {"Max RV Length", 18} {"Utility", 11} {"Cost", 6}");
 
                     foreach (Site site in sites)
                     {
-                        Console.WriteLine($"{site.SiteId} {site.MaxOccupancy} {site.Accessible} {site.MaxRVLength} {site.Utilities} {campgroundCost}");
+                        Console.WriteLine($"{site.SiteId} {site.MaxOccupancy} {site.Accessible} {site.MaxRVLength} {site.Utilities} {campgroundCost.ToString("C")}");
                         Console.WriteLine();
                     }
 
@@ -100,7 +100,7 @@ namespace Capstone.Views
                         return;
                     }
 
-                    string name = CLIMenu.GetString("What name shoudl the reservation be made under?");
+                    string name = CLIMenu.GetString("What name should the reservation be made under?");
                     MakeReservation(siteToReserve, name, arrivalDate, departureDate);
                 }
                 else
@@ -117,12 +117,19 @@ namespace Capstone.Views
             if (reservationId == 0)
             {
                 Console.WriteLine("We apologize, but unfortunately there was an error during the reservation process.");
+                Pause("");
             }
             else
             {
                 Console.WriteLine($"The reservation has been made and the confirmation id is {reservationId}");
+                Pause("");
             }
         }
+
+        //private static string ToYesNoString(this bool value)
+        //{
+        //    return (value ? "Yes" : "No");
+        //}
 
         protected override void BeforeDisplayMenu()
         {
