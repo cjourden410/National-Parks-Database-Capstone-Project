@@ -3,6 +3,7 @@ using Capstone.Models;
 using System;
 using System.Globalization;
 using System.Collections.Generic;
+using Capstone.Extensions;
 
 namespace Capstone.Views
 {
@@ -73,7 +74,7 @@ namespace Capstone.Views
 
                     foreach (Site site in sites)
                     {
-                        Console.WriteLine($"{site.SiteId} {site.MaxOccupancy} {site.Accessible} {site.MaxRVLength} {site.Utilities} {campgroundCost.ToString("C")}");
+                        Console.WriteLine($"{site.SiteId} {site.MaxOccupancy} {site.Accessible.ToYesNo()} {site.MaxRVLength.ToLengthNA()} {site.Utilities.ToYesNA()} {campgroundCost.ToString("C")}");
                         Console.WriteLine();
                     }
 
@@ -126,10 +127,6 @@ namespace Capstone.Views
             }
         }
 
-        //private static string ToYesNoString(this bool value)
-        //{
-        //    return (value ? "Yes" : "No");
-        //}
 
         protected override void BeforeDisplayMenu()
         {
