@@ -74,7 +74,7 @@ namespace Capstone.Views
 
                     foreach (Site site in sites)
                     {
-                        Console.WriteLine($"{site.SiteId} {site.MaxOccupancy} {site.Accessible.ToYesNo()} {site.MaxRVLength.ToLengthNA()} {site.Utilities.ToYesNA()} {campgroundCost.ToString("C")}");
+                        Console.WriteLine($"{site.SiteId, -10} {site.MaxOccupancy, -16} {site.Accessible.ToYesNo(), -16} {site.MaxRVLength.ToLengthNA(), -17} {site.Utilities.ToYesNA(), -9} {campgroundCost.ToString("C"), 0}");
                         Console.WriteLine();
                     }
 
