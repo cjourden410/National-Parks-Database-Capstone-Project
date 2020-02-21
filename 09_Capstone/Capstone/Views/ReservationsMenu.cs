@@ -56,16 +56,17 @@ namespace Capstone.Views
         private void SearchForAvailableReservations()
         {
             string pickCampground = CLIMenu.GetString("Which campground would you like (enter 0 to cancel)?");
-            string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
-            string departureDate = CLIMenu.GetDateTime("What is the departure date?");
-            IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
-
             if (pickCampground == "0")
             {
-                return;
+                CampgroundsMenu cm = new CampgroundsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                cm.Run();
+                Pause("");
             }
             else
             {
+                string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
+                string departureDate = CLIMenu.GetDateTime("What is the departure date?");
+                IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
                 if (sites.Count > 0)
                 {
                     decimal campgroundCost = campgroundDAO.GetCampgroundCost(pickCampground);
@@ -82,7 +83,9 @@ namespace Capstone.Views
 
                     if (siteToReserve == "0")
                     {
-                        return;
+                        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                        rm.Run();
+                        Pause("");
                     }
 
                     bool siteExistsInList = false;

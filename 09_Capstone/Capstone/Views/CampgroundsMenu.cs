@@ -25,7 +25,6 @@ namespace Capstone.Views
         {
             this.menuOptions.Add("1", "Search for Available Reservation");
             this.menuOptions.Add("2", "Return to Previous Screen");
-            this.quitKey = "2";
         }
 
         /// <summary>
@@ -36,22 +35,19 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
-            //switch (choice)
-            //{
-            //    case "1": // Go to new SubMenu for Reservations
-            //        //WriteError("Not yet implemented");
-            //        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-            //        rm.Run();
-            //        Pause("");
-            //        return true;
-            //}
-            //return true;
-
-            if (choice == "1")
+            switch (choice)
             {
-                ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                rm.Run();
-                Pause("");
+                case "1": // Go to new SubMenu for Reservations
+                    //WriteError("Not yet implemented");
+                    ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                    rm.Run();
+                    Pause("");
+                    return true;
+                case "2":
+                    ParksMenu pm = new ParksMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                    pm.Run();
+                    Pause("");
+                    return true;
             }
             return true;
         }
