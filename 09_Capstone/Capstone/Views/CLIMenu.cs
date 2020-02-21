@@ -245,7 +245,7 @@ namespace Capstone.Views
             }
         }
 
-        public static DateTime GetDateTime(string message)
+        public static string GetDateTime(string message)
         {
             string userInput = String.Empty;
             DateTime dateValue = DateTime.MinValue;
@@ -264,7 +264,7 @@ namespace Capstone.Views
             }
             while (!DateTime.TryParse(userInput, out dateValue));
 
-            return dateValue;
+            return userInput;
         }
 
         /// <summary>

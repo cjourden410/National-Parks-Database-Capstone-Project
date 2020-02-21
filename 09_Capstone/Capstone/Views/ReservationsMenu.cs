@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Capstone.Views
 {
-    public class CampgroundsMenu : MainMenu
+    public class ReservationsMenu : MainMenu
     {
         // Store any private variables, including DAOs here....
         private Park selectedPark;
@@ -15,7 +15,7 @@ namespace Capstone.Views
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public CampgroundsMenu(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
+        public ReservationsMenu(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
             base(campgroundDAO, parkDAO, reservationDAO, siteDAO)
         {
             this.selectedPark = selectedPark;
@@ -23,9 +23,15 @@ namespace Capstone.Views
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Search for Available Reservation");
-            this.menuOptions.Add("2", "Return to Previous Screen");
-            this.quitKey = "2";
+            //this.menuOptions.Add("1", "Search for Available Reservation");
+            //this.menuOptions.Add("2", "Return to Previous Screen");
+            //this.quitKey = "2";
+            Console.Clear();
+            BeforeDisplayMenu();
+            Console.WriteLine();
+            string pickCampground = CLIMenu.GetString("Which campground would you like?");
+            string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
+            string departureDate = CLIMenu.GetDateTime("What is the departure date?");
         }
 
         /// <summary>
@@ -36,22 +42,14 @@ namespace Capstone.Views
         /// <returns></returns>
         protected override bool ExecuteSelection(string choice)
         {
-            //switch (choice)
-            //{
-            //    case "1": // Go to new SubMenu for Reservations
-            //        //WriteError("Not yet implemented");
-            //        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-            //        rm.Run();
-            //        Pause("");
-            //        return true;
-            //}
-            //return true;
-
-            if (choice == "1")
+            switch (choice)
             {
-                ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                rm.Run();
-                Pause("");
+                case "1": // Go to new SubMenu for Reservations
+                    //WriteError("Not yet implemented");
+                    //ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                    //rm.Run();
+                    //Pause("");
+                    return true;
             }
             return true;
         }
@@ -69,7 +67,7 @@ namespace Capstone.Views
                 menuNumber = Convert.ToString(sum);
                 string openFromMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenFromMonth);
                 string openToMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenToMonth);
-                Console.WriteLine($"{"#"}{menuNumber}    {campground.Name, -17} {openFromMonth, -10} {openToMonth, -12} {campground.DailyFee.ToString("C"), 0}");
+                Console.WriteLine($"{"#"}{menuNumber}    {campground.Name,-17} {openFromMonth,-10} {openToMonth,-12} {campground.DailyFee.ToString("C"),0}");
 
             }
             ResetColor();
@@ -86,7 +84,7 @@ namespace Capstone.Views
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Campgrounds"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Reservations"));
             ResetColor();
         }
     }

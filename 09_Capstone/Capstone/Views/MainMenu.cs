@@ -73,8 +73,8 @@ namespace Capstone.Views
 
             if (chosen <= parks.Count)
             {
-                SubMenu1 sm = new SubMenu1(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                sm.Run();
+                ParksMenu pm = new ParksMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                pm.Run();
                 Pause("");
                 return true;
             }

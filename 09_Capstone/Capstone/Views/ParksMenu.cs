@@ -8,7 +8,7 @@ namespace Capstone.Views
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class SubMenu1 : MainMenu
+    public class ParksMenu : MainMenu
     {
         // Store any private variables, including DAOs here....
         private Park selectedPark;
@@ -16,7 +16,7 @@ namespace Capstone.Views
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public SubMenu1(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
+        public ParksMenu(Park selectedPark, ICampgroundSqlDAO campgroundDAO, IParkSqlDAO parkDAO, IReservationSqlDAO reservationDAO, ISiteSqlDAO siteDAO) :
             base(campgroundDAO, parkDAO, reservationDAO, siteDAO)
         {
             this.selectedPark = selectedPark;
@@ -47,8 +47,8 @@ namespace Capstone.Views
                     Pause("");
                     return true;
                 case "2": // Go to SubMenu for Reservations
-                    //ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                    //rm.Run();
+                    ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                    rm.Run();
                     Pause("");
                     return false;
             }
@@ -80,7 +80,7 @@ namespace Capstone.Views
         private void PrintHeader()
         {
             SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Park Information"));
             ResetColor();
         }
 
