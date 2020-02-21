@@ -130,6 +130,7 @@ namespace Capstone.Views
             return true;
         }
 
+
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();

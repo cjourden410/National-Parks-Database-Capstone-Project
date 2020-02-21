@@ -48,7 +48,7 @@ namespace Capstone.DAL
             return list;
         }
 
-        public int CreateReservation(Reservation newReservation)
+        public int CreateReservation(string site_id, string name, string from_date, string to_date)
         {
             int newId = 0;
             try
@@ -63,18 +63,24 @@ values (@site_id, @name, @from_date, @to_date, @create_date);
 Select @@identity;
 ";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@site_id", newReservation.SiteId);
-                    cmd.Parameters.AddWithValue("@name", newReservation.Name);
-                    cmd.Parameters.AddWithValue("@from_date", newReservation.FromDate);
-                    cmd.Parameters.AddWithValue("@to_date", newReservation.ToDate);
-                    cmd.Parameters.AddWithValue("@create_date", newReservation.CreateDate);
+                    cmd.Parameters.AddWithValue("@site_id", site_id);
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@from_date", from_date);
+                    cmd.Parameters.AddWithValue("@to_date", to_date);
+                    cmd.Parameters.AddWithValue("@create_date", DateTime.Now);
+                    cmd.ExecuteNonQuery();
+                    cmd = new SqlCommand("Select max(reservation_id) as reservation_id From reservation", conn);
+                    SqlDataReader rdr = cmd.ExecuteReader();
 
-                    newId = Convert.ToInt32(cmd.ExecuteScalar());
+                    while (rdr.Read())
+                    {
+                        newId = Convert.ToInt32(rdr["reservation_id"]);
+                    }
                 }
             }
             catch (SqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
             return newId;
         }

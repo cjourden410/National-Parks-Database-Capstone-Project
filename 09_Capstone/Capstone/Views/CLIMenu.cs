@@ -75,6 +75,10 @@ namespace Capstone.Views
                         break;
                     }
                 }
+                else
+                {
+                    break;
+                }
 
             }
         }

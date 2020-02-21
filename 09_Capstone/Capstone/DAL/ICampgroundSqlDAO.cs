@@ -6,5 +6,6 @@ namespace Capstone.DAL
     public interface ICampgroundSqlDAO
     {
         IList<Campground> GetCampgroundsByParkId(int park_id);
+        decimal GetCampgroundCost(string campground_id);
     }
 }

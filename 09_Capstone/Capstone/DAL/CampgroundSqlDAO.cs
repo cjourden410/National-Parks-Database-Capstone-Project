@@ -54,6 +54,40 @@ namespace Capstone.DAL
             return list;
         }
 
+        public decimal GetCampgroundCost(string campground_id)
+        {
+            // Declare the result variable
+            decimal campgroundCost = 0.00M;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    // Open the connection
+                    conn.Open();
+
+                    // Create the command for sql statement
+                    string sql = "Select daily_fee From campground Where campground_id = @campground_id";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@campground_id", campground_id);
+
+                    // Execute the query and get the result set in a reader
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    // For each row, create a new department and add it to the list
+                    while (rdr.Read())
+                    {
+                        campgroundCost = Convert.ToDecimal(rdr["daily_fee"]);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+
+            return campgroundCost;
+        }
         private static Campground RowToObject(SqlDataReader rdr)
         {
             Campground campground = new Campground();
