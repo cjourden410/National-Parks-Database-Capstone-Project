@@ -78,9 +78,19 @@ namespace Capstone.Tests
 
 
         [TestMethod]
-        public void Test()
+        public void CreateReservationTest()
         {
+            ReservationSqlDAO dao = new ReservationSqlDAO(connectionString);
 
+            dao.CreateReservation(Convert.ToString(newSiteId), "John Family", "2020-02-19", "2020-02-21");
+        }
+
+        [TestMethod]
+        public void SearchTests()
+        {
+            ReservationSqlDAO dao = new ReservationSqlDAO(connectionString);
+
+            dao.Search(newSiteId, Convert.ToDateTime("2020-02-17"), Convert.ToDateTime("2020-02-21"));
         }
     }
 }

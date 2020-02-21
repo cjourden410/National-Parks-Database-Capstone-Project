@@ -78,9 +78,25 @@ namespace Capstone.Tests
 
 
         [TestMethod]
-        public void wackbro()
+        public void GetAllSites()
         {
+            SiteSqlDAO dao = new SiteSqlDAO(connectionString);
 
+            IList<Site> sites = dao.GetAllSites(newSiteId);
+
+            Assert.AreEqual(1, sites.Count);
+        }
+
+        [TestMethod]
+        public void ViewAvail()
+        {
+            SiteSqlDAO dao = new SiteSqlDAO(connectionString);
+
+            IList<Site> sites = dao.ViewAvailableReservations(Convert.ToString(newCampgroundId), "2020-02-17", "2020-02-24");
+
+            Assert.AreEqual(0, sites.Count);
         }
     }
 }
+   
+
