@@ -55,11 +55,20 @@ namespace Capstone.Views
 
         private void SearchForAvailableReservations()
         {
+            IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
             string pickCampground = CLIMenu.GetString("Which campground would you like (enter 0 to cancel)?");
             if (pickCampground == "0")
             {
                 CampgroundsMenu cm = new CampgroundsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
                 cm.Run();
+                Pause("");
+            }
+            else if ((Convert.ToInt32(pickCampground)) > campgrounds.Count)
+            {
+                Console.WriteLine("Please choose a valid campground");
+                Pause("");
+                ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                rm.Run();
                 Pause("");
             }
             else
@@ -77,9 +86,9 @@ namespace Capstone.Views
                     foreach (Site site in sites)
                     {
                         Console.WriteLine($"{site.SiteId, -10} {site.MaxOccupancy, -16} {site.Accessible.ToYesNo(), -16} {site.MaxRVLength.ToLengthNA(), -17} {site.Utilities.ToYesNA(), -9} {campgroundCost.ToString("C"), 0}");
-                        Console.WriteLine();
+                        
                     }
-
+                    Console.WriteLine();
                     string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
                     if (siteToReserve == "0")
                     {
@@ -87,7 +96,11 @@ namespace Capstone.Views
                         rm.Run();
                         Pause("");
                     }
-                    
+                    //else if ((Convert.ToInt32(siteToReserve)) > sites.Count)
+                    //{
+                    //    Console.WriteLine("Please choose a valid site");
+                    //    Pause("");
+                    //}
                     bool siteExistsInList = false;
 
                     foreach (Site site in sites)
@@ -135,7 +148,7 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
-            SetColor(ConsoleColor.DarkMagenta);
+            SetColor(ConsoleColor.Red);
             IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
             int sum = 0;
             Console.WriteLine($"      {"Name",-10} {"Open",11} {"Close",11} {"Daily Fee",16}");

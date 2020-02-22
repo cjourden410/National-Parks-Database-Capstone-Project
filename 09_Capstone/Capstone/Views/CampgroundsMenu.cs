@@ -55,7 +55,7 @@ namespace Capstone.Views
         protected override void BeforeDisplayMenu()
         {
             PrintHeader();
-            SetColor(ConsoleColor.DarkMagenta);
+            SetColor(ConsoleColor.Red);
             IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
             int sum = 0;
             Console.WriteLine($"      {"Name",-10} {"Open",11} {"Close",11} {"Daily Fee",16}");

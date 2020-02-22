@@ -36,6 +36,7 @@ namespace Capstone.Views
             //this.menuOptions.Add("2", "Menu option 2");
             //this.menuOptions.Add("3", "Go to a sub-menu");
             //this.menuOptions.Add("Q", "Quit program");
+            SetColor(ConsoleColor.Yellow);
             IList<Park> parks = parkDAO.GetParks();
             int sum = 0;
             foreach (Park park in parks)
@@ -46,8 +47,7 @@ namespace Capstone.Views
             }
             this.menuOptions.Add("Q", "Quit");
             this.quitKey = "Q";
-
-
+            ResetColor();
         }
 
         /// <summary>
@@ -152,8 +152,9 @@ namespace Capstone.Views
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("My Program"));
+            SetColor(ConsoleColor.Cyan);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render($"    {"National Park"}"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Campsite Guide"));
             ResetColor();
         }
     }
