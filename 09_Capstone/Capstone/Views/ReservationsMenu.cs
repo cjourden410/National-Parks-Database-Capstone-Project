@@ -52,6 +52,93 @@ namespace Capstone.Views
         //    }
         //    return true;
         //}
+        #region Original Working SearchForAvailableReservations
+        //private void SearchForAvailableReservations()
+        //{
+        //    IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
+        //    string pickCampground = CLIMenu.GetString("Which campground would you like (enter 0 to cancel)?");
+        //    if (pickCampground == "0")
+        //    {
+        //        CampgroundsMenu cm = new CampgroundsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+        //        cm.Run();
+        //        Pause("");
+        //    }
+        //    else if ((Convert.ToInt32(pickCampground)) > campgrounds.Count)
+        //    {
+        //        Console.WriteLine("Please choose a valid campground");
+        //        Pause("");
+        //        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+        //        rm.Run();
+        //        Pause("");
+        //    }
+
+        //    //pulled out of else statement as not needed removed as not needed
+        //    string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
+        //    DateTime.TryParse(arrivalDate, out DateTime arrival); // Adding in a parse for arrival date to make sure that the arrival date is before the departure date
+        //    string departureDate = CLIMenu.GetDateTime("What is the departure date?");
+        //    DateTime.TryParse(departureDate, out DateTime departure);// Adding in a parse for departure date to make sure that the arrival date is before the departure date
+        //    if (arrival > departure)
+        //    {
+        //        Console.WriteLine("Your departure date cannot be before your arrival date. Please try again with a valid date of departure.");
+        //        Pause("");
+        //        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+        //        rm.Run();
+        //        Pause("");
+        //    }
+
+        //    IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
+        //    if (sites.Count > 0)
+        //    {
+        //        decimal campgroundCost = campgroundDAO.GetCampgroundCost(pickCampground);
+        //        Console.WriteLine("Results Matching Your Search Criteria");
+        //        Console.WriteLine($"{"Site No.",-10} {"Max Occupancy",10} {"Accessible?",14} {"Max RV Length",18} {"Utility",11} {"Cost",6}");
+
+        //        foreach (Site site in sites)
+        //        {
+        //            Console.WriteLine($"{site.SiteId,-10} {site.MaxOccupancy,-16} {site.Accessible.ToYesNo(),-16} {site.MaxRVLength.ToLengthNA(),-17} {site.Utilities.ToYesNA(),-9} {campgroundCost.ToString("C"),0}");
+
+        //        }
+        //        Console.WriteLine();
+        //        string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
+        //        if (siteToReserve == "0")
+        //        {
+        //            ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+        //            rm.Run();
+        //            Pause("");
+        //        }
+        //        //else if ((Convert.ToInt32(siteToReserve)) > sites.Count)
+        //        //{
+        //        //    Console.WriteLine("Please choose a valid site");
+        //        //    Pause("");
+        //        //}
+        //        bool siteExistsInList = false;
+
+        //        foreach (Site site in sites)
+        //        {
+        //            if (site.SiteId.ToString() == siteToReserve)
+        //            {
+        //                siteExistsInList = true;
+        //            }
+        //        }
+
+        //        if (!siteExistsInList)
+        //        {
+        //            Console.WriteLine("We're sorry, that Site ID is not in our list. Please try again.");
+        //            return;
+        //        }
+
+        //        string name = CLIMenu.GetString("What name should the reservation be made under?");
+        //        MakeReservation(siteToReserve, name, arrivalDate, departureDate);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
+        //        return;
+        //    }
+
+
+        //}
+        #endregion
 
         private void SearchForAvailableReservations()
         {
@@ -71,63 +158,95 @@ namespace Capstone.Views
                 rm.Run();
                 Pause("");
             }
-            else
+
+            while (true)
             {
-                
+                // Putting into a while statement to re-prompt user for input when inputting invalid information
                 string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
                 string departureDate = CLIMenu.GetDateTime("What is the departure date?");
-                IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
-                if (sites.Count > 0)
+                while (true)
                 {
-                    decimal campgroundCost = campgroundDAO.GetCampgroundCost(pickCampground);
-                    Console.WriteLine("Results Matching Your Search Criteria");
-                    Console.WriteLine($"{"Site No.", -10} {"Max Occupancy", 10} {"Accessible?", 14} {"Max RV Length", 18} {"Utility", 11} {"Cost", 6}");
-
-                    foreach (Site site in sites)
+                    DateTime.TryParse(arrivalDate, out DateTime arrival); // Adding in a parse for arrival date to make sure that the arrival date is before the departure date
+                    DateTime.TryParse(departureDate, out DateTime departure);// Adding in a parse for departure date to make sure that the arrival date is before the departure date
+                    if (arrival > departure) // check to make sure that the arrival date is before the departure date
                     {
-                        Console.WriteLine($"{site.SiteId, -10} {site.MaxOccupancy, -16} {site.Accessible.ToYesNo(), -16} {site.MaxRVLength.ToLengthNA(), -17} {site.Utilities.ToYesNA(), -9} {campgroundCost.ToString("C"), 0}");
-                        
+                        Console.WriteLine("Your departure date cannot be before your arrival date. Please try again with a valid date of departure.");
+                        break;
                     }
-                    Console.WriteLine();
-                    string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
-                    if (siteToReserve == "0")
-                    {
-                        ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
-                        rm.Run();
-                        Pause("");
-                    }
-                    //else if ((Convert.ToInt32(siteToReserve)) > sites.Count)
-                    //{
-                    //    Console.WriteLine("Please choose a valid site");
-                    //    Pause("");
-                    //}
-                    bool siteExistsInList = false;
 
-                    foreach (Site site in sites)
+
+                    IList<Site> sites = siteDAO.ViewAvailableReservations(pickCampground, arrivalDate, departureDate);
+                    if (sites.Count > 0)
                     {
-                        if (site.SiteId.ToString() == siteToReserve)
+                        decimal campgroundCost = campgroundDAO.GetCampgroundCost(pickCampground);
+                        Console.WriteLine("Results Matching Your Search Criteria");
+                        Console.WriteLine($"{"Site No.",-10} {"Max Occupancy",10} {"Accessible?",14} {"Max RV Length",18} {"Utility",11} {"Cost",6}");
+
+                        foreach (Site site in sites)
                         {
-                            siteExistsInList = true;
+                            Console.WriteLine($"{site.SiteNumber,-10} {site.MaxOccupancy,-16} {site.Accessible.ToYesNo(),-16} {site.MaxRVLength.ToLengthNA(),-17} {site.Utilities.ToYesNA(),-9} {campgroundCost.ToString("C"),0}");
+
                         }
-                    }
+                        Console.WriteLine();
+                        string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
+                        while (true)
+                        {
+                            #region Site to reserve area
+                            if (siteToReserve == "0")
+                            {
+                                ReservationsMenu rm = new ReservationsMenu(selectedPark, campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                                rm.Run();
+                                Pause("");
+                            }
+                            else if (siteToReserve != "0")
+                            {
+                                foreach (Site site in sites)
+                                {
+                                    if (site.SiteNumber == Convert.ToInt32(siteToReserve))
+                                    {
+                                        string name = CLIMenu.GetString("What name should the reservation be made under?");
+                                        MakeReservation(siteToReserve, name, arrivalDate, departureDate);
+                                        break;
+                                    }
+                                    else if (site.SiteNumber != Convert.ToInt32(siteToReserve))
+                                    {
+                                        Console.WriteLine("We're sorry, that Site number is not in our list. Please try again.");
+                                        break;
+                                    }
+                                }
+                            }
+                            #endregion
+                        }
+                        //bool siteExistsInList = false;
 
-                    if (!siteExistsInList)
+                        //foreach (Site site in sites)
+                        //{
+                        //    if (site.SiteId.ToString() == siteToReserve)
+                        //    {
+                        //        siteExistsInList = true;
+                        //    }
+                        //}
+
+                        //if (!siteExistsInList)
+                        //{
+                        //    Console.WriteLine("We're sorry, that Site ID is not in our list. Please try again.");
+                        //    Console.ReadLine();
+                        //}
+
+                        //string name = CLIMenu.GetString("What name should the reservation be made under?");
+                        //MakeReservation(siteToReserve, name, arrivalDate, departureDate);
+
+                    }
+                    else
                     {
-                        Console.WriteLine("We're sorry, that Site ID is not in our list. Please try again.");
-                        return;
+                        Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
+                        Console.ReadLine();
                     }
 
-                    string name = CLIMenu.GetString("What name should the reservation be made under?");
-                    MakeReservation(siteToReserve, name, arrivalDate, departureDate);
                 }
-                else
-                {
-                    Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
-                    return;
-                }
-         
             }
         }
+
 
         private void MakeReservation(string siteToReserve, string name, string arrivalDate, string departureDate)
         {
@@ -140,7 +259,9 @@ namespace Capstone.Views
             else
             {
                 Console.WriteLine($"The reservation has been made and the confirmation id is {reservationId}");
-                Pause("");
+                Pause("We hope that you enjoy your upcoming visit! You will now be taken back to the main menu. ");
+                MainMenu mm = new MainMenu(campgroundDAO, parkDAO, reservationDAO, siteDAO);
+                mm.Run();
             }
         }
 
