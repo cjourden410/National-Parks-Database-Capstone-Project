@@ -52,7 +52,7 @@ namespace Capstone.Views
         //    }
         //    return true;
         //}
-        #region Original Working SearchForAvailableReservations
+        #region Original SearchForAvailableReservations - No longer using
         //private void SearchForAvailableReservations()
         //{
         //    IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
@@ -162,8 +162,8 @@ namespace Capstone.Views
             while (true)
             {
                 // Putting into a while statement to re-prompt user for input when inputting invalid information
-                string arrivalDate = CLIMenu.GetDateTime("What is the arrival date?");
-                string departureDate = CLIMenu.GetDateTime("What is the departure date?");
+                string arrivalDate = CLIMenu.GetDateTime("What is the arrival date? (DD/MM/YYYY)");
+                string departureDate = CLIMenu.GetDateTime("What is the departure date? (DD/MM/YYYY)");
                 while (true)
                 {
                     DateTime.TryParse(arrivalDate, out DateTime arrival); // Adding in a parse for arrival date to make sure that the arrival date is before the departure date
@@ -188,7 +188,13 @@ namespace Capstone.Views
 
                         }
                         Console.WriteLine();
-                        string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
+                    }
+                    else
+                    {
+                        Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
+                        break;
+                    }
+                    string siteToReserve = CLIMenu.GetString("Which site should be reserved (enter 0 to cancel)");
                         while (true)
                         {
                             #region Site to reserve area
@@ -208,41 +214,19 @@ namespace Capstone.Views
                                         MakeReservation(siteToReserve, name, arrivalDate, departureDate);
                                         break;
                                     }
-                                    else if (site.SiteNumber != Convert.ToInt32(siteToReserve))
-                                    {
-                                        Console.WriteLine("We're sorry, that Site number is not in our list. Please try again.");
-                                        break;
-                                    }
                                 }
+                                Console.WriteLine("We're sorry, that Site number is not in our list. Please try again.");
+                                Pause("");
+                            Console.Clear(); // Clear the menu as to not clutter the experience for the user
+                            // Add in the BeforeDisplayMenu, Arrival Date & Departure Date from user with the original message
+                            BeforeDisplayMenu();
+                            Console.WriteLine($"What is the arrival date? (DD/MM/YYYY) {arrivalDate}");
+                            Console.WriteLine($"What is the departure date? (DD/MM/YYYY) {departureDate}");
+                            break;
                             }
+                            
                             #endregion
                         }
-                        //bool siteExistsInList = false;
-
-                        //foreach (Site site in sites)
-                        //{
-                        //    if (site.SiteId.ToString() == siteToReserve)
-                        //    {
-                        //        siteExistsInList = true;
-                        //    }
-                        //}
-
-                        //if (!siteExistsInList)
-                        //{
-                        //    Console.WriteLine("We're sorry, that Site ID is not in our list. Please try again.");
-                        //    Console.ReadLine();
-                        //}
-
-                        //string name = CLIMenu.GetString("What name should the reservation be made under?");
-                        //MakeReservation(siteToReserve, name, arrivalDate, departureDate);
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("We're sorry, there are no campsites available. Please try again with different dates.");
-                        Console.ReadLine();
-                    }
-
                 }
             }
         }
