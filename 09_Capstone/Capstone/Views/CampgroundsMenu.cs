@@ -58,14 +58,14 @@ namespace Capstone.Views
             SetColor(ConsoleColor.Red);
             IList<Campground> campgrounds = campgroundDAO.GetCampgroundsByParkId(selectedPark.ParkId);
             int sum = 0;
-            Console.WriteLine($"      {"Name",-10} {"Open",11} {"Close",11} {"Daily Fee",16}");
+            Console.WriteLine($"      {"Name",-10} {"Open",27} {"Close",11} {"Daily Fee",16}");
             foreach (Campground campground in campgrounds)
             {
                 sum += 1;
                 menuNumber = Convert.ToString(sum);
                 string openFromMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenFromMonth);
                 string openToMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenToMonth);
-                Console.WriteLine($"{"#"}{menuNumber}    {campground.Name, -17} {openFromMonth, -10} {openToMonth, -12} {campground.DailyFee.ToString("C"), 0}");
+                Console.WriteLine($"{"#"}{menuNumber}    {campground.Name, -33} {openFromMonth, -10} {openToMonth, -12} {campground.DailyFee.ToString("C"), 0}");
 
             }
             ResetColor();
